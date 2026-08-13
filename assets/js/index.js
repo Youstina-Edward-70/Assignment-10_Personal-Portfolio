@@ -7,6 +7,7 @@ let fontOptionBtns = document.querySelectorAll(".font-option");
 let body = document.body;
 let themeColorsContainer = document.getElementById("theme-colors-grid");
 let themeColorBtns = document.querySelectorAll("#theme-colors-grid button");
+let resetBtn = document.getElementById("reset-settings");
 
 
 // .
@@ -55,6 +56,11 @@ function colorToggle(target) {
         target.classList.add("ring-2", "ring-primary", "ring-offset-2", "ring-offset-white", "dark:ring-offset-slate-900");
     }
 }
+function resetTheme() {
+    hideSettingsSidebar();
+    document.querySelector("button[data-font='tajawal']").click();
+    document.querySelector("button[title='Purple Blue']").click();
+}
 
 
 themeBtn.addEventListener("click", function () {
@@ -80,4 +86,7 @@ for(let i = 0; i < fontOptionBtns.length; i++) {
 }
 themeColorsContainer.addEventListener("click", function(e) {
     colorToggle(e.target);
+});
+resetBtn.addEventListener("click", function() {
+    resetTheme();
 });
