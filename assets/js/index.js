@@ -13,8 +13,32 @@ let resetBtn = document.getElementById("reset-settings");
 // .
 
 
+function savedSettings () {
+    (localStorage.getItem("theme") || "dark") === "dark"
+    ? (htmlElement.classList.add("dark"), localStorage.setItem("theme", "dark")) 
+    : (htmlElement.classList.remove("dark"), localStorage.setItem("theme", "light"));
+
+    let myFont = localStorage.getItem("font");
+    myFont
+    ? document.querySelector(`button[data-font='${myFont}']`).click()
+    : (document.querySelector("button[data-font='tajawal']").click(), localStorage.setItem("font", "tajawal"));
+
+    let myThemeColor = localStorage.getItem("themeColor");
+    if(myThemeColor) {
+        let att = JSON.parse(myThemeColor);
+        document.querySelector(`button[data-primary='${att.primary}']`).click();
+    } else {
+        document.querySelector("button[data-primary='#6366f1']").click();
+        localStorage.setItem("themeColor", JSON.stringify({
+            primary: "#6366f1",
+            secondary: "#8b5cf6",
+            accent: "#a855f7" 
+        }));
+    }
+}
 function themeToggle() {
-    htmlElement.classList.toggle("dark");
+    let theme = htmlElement.classList.toggle("dark");
+    localStorage.setItem("theme", theme? "dark" : "light");
 }
 function showSettingsSidebar() {
     settingsSidebar.classList.remove("translate-x-full");
@@ -40,6 +64,7 @@ function fontToggle(target) {
                 fontOptionBtns[i].classList.add("border-slate-200", "dark:border-slate-700");
             }
         }
+        localStorage.setItem("font", selectedFont);
     }
 }
 function colorToggle(target) {
@@ -47,13 +72,20 @@ function colorToggle(target) {
     if(target !== null) {
         let primary = target.dataset.primary;
         let secondary = target.dataset.secondary;
+        let accent = target.dataset.accent;
         htmlElement.style.setProperty("--color-primary", primary);
         htmlElement.style.setProperty("--color-secondary", secondary);
-        htmlElement.style.setProperty("--color-accent", primary);
+        htmlElement.style.setProperty("--color-accent", accent);
         for(let i = 0; i < themeColorBtns.length; i++) {
             themeColorBtns[i].classList.remove("ring-2", "ring-primary", "ring-offset-2", "ring-offset-white", "dark:ring-offset-slate-900");
         }
         target.classList.add("ring-2", "ring-primary", "ring-offset-2", "ring-offset-white", "dark:ring-offset-slate-900");
+
+        localStorage.setItem("themeColor", JSON.stringify({
+            primary: primary,
+            secondary: secondary,
+            accent: accent 
+        }));
     }
 }
 function resetTheme() {
@@ -90,3 +122,5 @@ themeColorsContainer.addEventListener("click", function(e) {
 resetBtn.addEventListener("click", function() {
     resetTheme();
 });
+
+savedSettings();
