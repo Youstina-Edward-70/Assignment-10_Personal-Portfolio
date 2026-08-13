@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html dir="rtl" lang="ar" class="dark">
   <head>
     <!-- Essential Meta Tags (must be first) -->
@@ -26,7 +26,10 @@
       property="og:description"
       content="مطور واجهات أمامية متخصص في React و Next.js و TypeScript. أبني تجارب رقمية استثنائية."
     />
-    <meta property="og:image" content="https://youstinaedward.dev/og-image.png" />
+    <meta
+      property="og:image"
+      content="https://youstinaedward.dev/og-image.png"
+    />
     <meta property="og:locale" content="ar_SA" />
 
     <!-- Twitter Card -->
@@ -37,7 +40,10 @@
       name="twitter:description"
       content="مطور واجهات أمامية متخصص في React و Next.js و TypeScript."
     />
-    <meta name="twitter:image" content="https://youstinaedward.dev/og-image.png" />
+    <meta
+      name="twitter:image"
+      content="https://youstinaedward.dev/og-image.png"
+    />
 
     <!-- Resource Hints (preconnect includes dns-prefetch) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -65,7 +71,10 @@
       rel="preload"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
       crossorigin="anonymous"
     />
     <noscript>
@@ -81,7 +90,10 @@
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Cairo:wght@200..1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
     <noscript>
       <link
@@ -90,7 +102,6 @@
       />
     </noscript>
 
-    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/imgs/favicon.png" />
     <!-- Main Stylesheet -->
@@ -3157,12 +3168,85 @@
               لون الثيم
             </h4>
             <!-- Grid for colors will be populated by JS or simple HTML here. I'll use HTML for structure but might need IDs -->
-            <div
-              class="grid grid-cols-4 gap-3"
-              id="theme-colors-grid"
-              aria-label="اختيار لون الثيم"
-            >
-              <!-- Javascript will populate this -->
+            <div class="grid grid-cols-4 gap-3" id="theme-colors-grid">
+              <button
+                class="w-12 h-12 rounded-full cursor-pointer transition-transform hover:scale-110 border-2 border-slate-200 dark:border-slate-700 hover:border-primary shadow-sm ring-2 ring-primary ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
+                title="Purple Blue"
+                data-primary="#6366f1"
+                data-secondary="#8b5cf6"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    rgb(99, 102, 241),
+                    rgb(139, 92, 246)
+                  );
+                "
+              ></button
+              ><button
+                class="w-12 h-12 rounded-full cursor-pointer transition-transform hover:scale-110 border-2 border-slate-200 dark:border-slate-700 hover:border-primary shadow-sm"
+                title="Pink Orange"
+                data-primary="#ec4899"
+                data-secondary="#f97316"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    rgb(236, 72, 153),
+                    rgb(249, 115, 22)
+                  );
+                "
+              ></button
+              ><button
+                class="w-12 h-12 rounded-full cursor-pointer transition-transform hover:scale-110 border-2 border-slate-200 dark:border-slate-700 hover:border-primary shadow-sm"
+                title="Green Emerald"
+                data-primary="#10b981"
+                data-secondary="#059669"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    rgb(16, 185, 129),
+                    rgb(5, 150, 105)
+                  );
+                "
+              ></button
+              ><button
+                class="w-12 h-12 rounded-full cursor-pointer transition-transform hover:scale-110 border-2 border-slate-200 dark:border-slate-700 hover:border-primary shadow-sm"
+                title="Blue Cyan"
+                data-primary="#3b82f6"
+                data-secondary="#06b6d4"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    rgb(59, 130, 246),
+                    rgb(6, 182, 212)
+                  );
+                "
+              ></button
+              ><button
+                class="w-12 h-12 rounded-full cursor-pointer transition-transform hover:scale-110 border-2 border-slate-200 dark:border-slate-700 hover:border-primary shadow-sm"
+                title="Red Rose"
+                data-primary="#ef4444"
+                data-secondary="#f43f5e"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    rgb(239, 68, 68),
+                    rgb(244, 63, 94)
+                  );
+                "
+              ></button
+              ><button
+                class="w-12 h-12 rounded-full cursor-pointer transition-transform hover:scale-110 border-2 border-slate-200 dark:border-slate-700 hover:border-primary shadow-sm"
+                title="Amber Orange"
+                data-primary="#f59e0b"
+                data-secondary="#ea580c"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    rgb(245, 158, 11),
+                    rgb(234, 88, 12)
+                  );
+                "
+              ></button>
             </div>
           </div>
         </div>

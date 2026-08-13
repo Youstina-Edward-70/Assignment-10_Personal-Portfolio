@@ -5,6 +5,8 @@ let closeSettingBtn = document.getElementById("close-settings");
 let settingsSidebar = document.getElementById("settings-sidebar");
 let fontOptionBtns = document.querySelectorAll(".font-option");
 let body = document.body;
+let themeColorsContainer = document.getElementById("theme-colors-grid");
+let themeColorBtns = document.querySelectorAll("#theme-colors-grid button");
 
 
 // .
@@ -39,6 +41,20 @@ function fontToggle(target) {
         }
     }
 }
+function colorToggle(target) {
+    target = target.closest("button");
+    if(target !== null) {
+        let primary = target.dataset.primary;
+        let secondary = target.dataset.secondary;
+        htmlElement.style.setProperty("--color-primary", primary);
+        htmlElement.style.setProperty("--color-secondary", secondary);
+        htmlElement.style.setProperty("--color-accent", primary);
+        for(let i = 0; i < themeColorBtns.length; i++) {
+            themeColorBtns[i].classList.remove("ring-2", "ring-primary", "ring-offset-2", "ring-offset-white", "dark:ring-offset-slate-900");
+        }
+        target.classList.add("ring-2", "ring-primary", "ring-offset-2", "ring-offset-white", "dark:ring-offset-slate-900");
+    }
+}
 
 
 themeBtn.addEventListener("click", function () {
@@ -62,3 +78,6 @@ for(let i = 0; i < fontOptionBtns.length; i++) {
         fontToggle(e.target);
     })
 }
+themeColorsContainer.addEventListener("click", function(e) {
+    colorToggle(e.target);
+});
