@@ -10,6 +10,8 @@ let themeColorBtns = document.querySelectorAll("#theme-colors-grid button");
 let resetBtn = document.getElementById("reset-settings");
 let sections = document.querySelectorAll("section");
 let navLinks = document.querySelectorAll(".nav-links a");
+let scrollToTopBtn = document.getElementById("scroll-to-top");
+let heroSection = document.getElementById("hero-section");
 
 
 // .
@@ -113,6 +115,19 @@ function scrollSpy() {
         }
     }
 }
+function showAndHideBtnUp() {
+    let scrollPoint = window.scrollY;
+    let heroSectionHeight = heroSection.offsetHeight;
+    scrollPoint > heroSectionHeight 
+    ? (scrollToTopBtn.classList.remove("opacity-0", "invisible"), scrollToTopBtn.classList.add("opacity-100", "visible"))
+    : (scrollToTopBtn.classList.remove("opacity-100", "visible"), scrollToTopBtn.classList.add("opacity-0", "invisible"));
+}
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
 
 
 themeBtn.addEventListener("click", function () {
@@ -144,6 +159,10 @@ resetBtn.addEventListener("click", function() {
 });
 window.addEventListener("scroll", function() {
     scrollSpy();
+    showAndHideBtnUp();
+});
+scrollToTopBtn.addEventListener("click", function() {
+    scrollToTop();
 });
 
 savedSettings();
