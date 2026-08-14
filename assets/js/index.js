@@ -15,9 +15,15 @@ let heroSection = document.getElementById("hero-section");
 let projectFilterBtnsContainer = document.getElementById("portfolio-filters");
 let projectFilterBtns = document.querySelectorAll("#portfolio-filters .portfolio-filter");
 let projects = document.querySelectorAll("#portfolio-grid .portfolio-item");
+let carousel = document.getElementById("testimonials-carousel");
+let prevBtn = document.getElementById("prev-testimonial");
+let nextBtn = document.getElementById("next-testimonial");
+let indicators = document.querySelectorAll(".carousel-indicator");
+let testimonialCards = document.querySelectorAll(".testimonial-card");
 
 
-// .
+let firstCardIdx = 0;
+let shownCards = 0;
 
 
 function savedSettings () {
@@ -101,7 +107,7 @@ function resetTheme() {
     document.querySelector("button[title='Purple Blue']").click();
 }
 function scrollSpy() {
-    let scrollPoint = window.scrollY + 1;
+    let scrollPoint = window.scrollY + 88;
     let currentSectionId = "";
     for(let i = 0; i < sections.length; i++) {
         let sectionOffestTop = sections[i].offsetTop;
@@ -160,6 +166,23 @@ function filterProjects(filter) {
         }
     }
 }
+function handleCarousel() {
+    let movingAmount = firstCardIdx * (100 / shownCards);
+    carousel.style.transform = `translateX(${movingAmount}%)`
+}
+function changeShownCards() {
+    shownCards = window.innerWidth >= 1024
+    ? 3 : window.innerWidth >= 640
+    ? 2 : 1;
+}
+function indicatorStyle(target) {
+    for(let i = 0; i < indicators.length; i++) {
+        indicators[i].classList.remove("active", "bg-accent", "scale-125");
+        indicators[i].classList.add("bg-slate-400", "dark:bg-slate-600");
+    }
+    target.classList.remove("bg-slate-400", "dark:bg-slate-600");
+    target.classList.add("active", "bg-accent", "scale-125");
+}
 
 
 themeBtn.addEventListener("click", function () {
@@ -199,6 +222,32 @@ scrollToTopBtn.addEventListener("click", function() {
 projectFilterBtnsContainer.addEventListener("click", function (e) {
     filterProjects(e.target);
 });
+prevBtn.addEventListener("click", function() {
+    if(firstCardIdx <= 0) firstCardIdx = testimonialCards.length - shownCards;
+    else firstCardIdx--;
+    handleCarousel();
+    indicatorStyle(indicators[firstCardIdx] || indicators[indicators.length - 1]);
+});
+nextBtn.addEventListener("click", function() {
+    if(firstCardIdx >= testimonialCards.length - shownCards) firstCardIdx = 0;
+    else firstCardIdx++;
+    handleCarousel();
+    indicatorStyle(indicators[firstCardIdx] || indicators[indicators.length - 1]);
+});
+for(let i = 0; i < indicators.length; i++) {
+    indicators[i].addEventListener("click", function(e) {
+        firstCardIdx = i;
+        handleCarousel();
+        indicatorStyle(e.target);
+    });
+}
+window.addEventListener("resize", function() {
+    changeShownCards();
+    handleCarousel();
+    indicatorStyle(indicators[firstCardIdx]);
+});
 
 savedSettings();
 scrollSpy();
+changeShownCards();
+indicatorStyle(indicators[0]);
