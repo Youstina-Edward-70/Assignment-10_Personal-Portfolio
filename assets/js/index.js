@@ -12,6 +12,9 @@ let sections = document.querySelectorAll("section");
 let navLinks = document.querySelectorAll(".nav-links a");
 let scrollToTopBtn = document.getElementById("scroll-to-top");
 let heroSection = document.getElementById("hero-section");
+let projectFilterBtnsContainer = document.getElementById("portfolio-filters");
+let projectFilterBtns = document.querySelectorAll("#portfolio-filters .portfolio-filter");
+let projects = document.querySelectorAll("#portfolio-grid .portfolio-item");
 
 
 // .
@@ -128,6 +131,35 @@ function scrollToTop() {
         behavior: "smooth"
     });
 }
+function filterProjects(filter) {
+    filter = filter.closest("button");
+    if (filter !== null) {
+        let currentCat = filter.dataset.filter;
+        for (let i = 0; i < projectFilterBtns.length; i++) {
+            projectFilterBtns[i].dataset.filter === currentCat
+                ? (projectFilterBtns[i].classList.remove("bg-white", "dark:bg-slate-800", "text-slate-600", "dark:text-slate-300", "border", "border-slate-300", "dark:border-slate-700"),
+                    projectFilterBtns[i].classList.add("active", "bg-linear-to-r", "from-primary", "to-secondary", "text-white", "shadow-lg", "shadow-primary/50"))
+                : (projectFilterBtns[i].classList.remove("active", "bg-linear-to-r", "from-primary", "to-secondary", "text-white", "shadow-lg", "shadow-primary/50"),
+                    projectFilterBtns[i].classList.add("bg-white", "dark:bg-slate-800", "text-slate-600", "dark:text-slate-300", "border", "border-slate-300", "dark:border-slate-700"));
+        }
+
+        for (let i = 0; i < projects.length; i++) {
+            projects[i].style.opacity = '0';
+            projects[i].style.transform = 'scale(0.8)'; // fade out
+            setTimeout(function() {
+                if (currentCat === "all" || currentCat === projects[i].dataset.category) {
+                    projects[i].style.display = 'block';
+                    setTimeout(function() {
+                        projects[i].style.opacity = '1';
+                        projects[i].style.transform = 'scale(1)'; // fade in
+                    }, 50);
+                } else {
+                    projects[i].style.display = 'none';
+                }
+            }, 300);
+        }
+    }
+}
 
 
 themeBtn.addEventListener("click", function () {
@@ -163,6 +195,9 @@ window.addEventListener("scroll", function() {
 });
 scrollToTopBtn.addEventListener("click", function() {
     scrollToTop();
+});
+projectFilterBtnsContainer.addEventListener("click", function (e) {
+    filterProjects(e.target);
 });
 
 savedSettings();
