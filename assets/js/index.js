@@ -8,6 +8,8 @@ let body = document.body;
 let themeColorsContainer = document.getElementById("theme-colors-grid");
 let themeColorBtns = document.querySelectorAll("#theme-colors-grid button");
 let resetBtn = document.getElementById("reset-settings");
+let sections = document.querySelectorAll("section");
+let navLinks = document.querySelectorAll(".nav-links a");
 
 
 // .
@@ -93,6 +95,24 @@ function resetTheme() {
     document.querySelector("button[data-font='tajawal']").click();
     document.querySelector("button[title='Purple Blue']").click();
 }
+function scrollSpy() {
+    let scrollPoint = window.scrollY + 1;
+    let currentSectionId = "";
+    for(let i = 0; i < sections.length; i++) {
+        let sectionOffestTop = sections[i].offsetTop;
+        let sectionOffestHeight = sections[i].offsetHeight;
+        let sectionOffestBottom = sectionOffestTop + sectionOffestHeight;
+        if(sectionOffestTop < scrollPoint && scrollPoint < sectionOffestBottom) {
+            currentSectionId = sections[i].getAttribute("id");
+        }
+    }
+    for(let i = 0; i < navLinks.length; i++) {
+        navLinks[i].classList.remove("active");
+        if(navLinks[i].getAttribute("href") === `#${currentSectionId}`) {
+            navLinks[i].classList.add("active");
+        }
+    }
+}
 
 
 themeBtn.addEventListener("click", function () {
@@ -122,5 +142,9 @@ themeColorsContainer.addEventListener("click", function(e) {
 resetBtn.addEventListener("click", function() {
     resetTheme();
 });
+window.addEventListener("scroll", function() {
+    scrollSpy();
+});
 
 savedSettings();
+scrollSpy();
